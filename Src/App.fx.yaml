@@ -1,0 +1,6 @@
+App As appinfo:
+    BackEnabled: =false
+    OnStart: |
+        =Set(GreenColor, RGBA(37, 125, 94, 1));
+        Set(YellowColor, RGBA(195, 154, 31, 1))
+

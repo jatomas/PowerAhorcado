@@ -1,0 +1,316 @@
+PlayScreen As screen:
+    Fill: =GreenColor
+    OnVisible: |-
+        =// Inicializar colección de letras seleccionadas
+        ClearCollect(SelectedKeysCollection, {Letra:""});
+        Clear(SelectedKeysCollection);
+        
+        // Inicializar total errores
+        Set(ErrorCount, 0);
+        
+        // Inicializar total aciertos
+        Set(WinCount, 0);
+        
+        // Inicializar Resultado partida
+        Set(GameStatus, 0)
+
+    TitleLabel_1 As label:
+        Color: =YellowColor
+        Height: =103
+        Size: =50
+        Text: ="POWER AHORCADO"
+        Width: =638
+        X: =356
+        Y: =8
+        ZIndex: =1
+
+    SecretWordGallery As gallery.galleryHorizontal:
+        Height: =74
+        Items: =SecretWordCollection
+        TemplateSize: =37
+        Width: =979
+        X: =356
+        Y: =172
+        ZIndex: =2
+
+        SecretWordLabel As label:
+            Align: =Align.Center
+            BorderThickness: =1
+            Color: =If(Self.Text in SelectedKeysCollection.Letra, YellowColor, GreenColor)
+            FontWeight: =FontWeight.Semibold
+            Height: =47
+            OnSelect: =Select(Parent)
+            Size: =30
+            Text: =ThisItem.Result
+            Width: =37
+            ZIndex: =1
+
+    SelectedKeyGallery As gallery.galleryHorizontal:
+        Height: =56
+        Items: =SelectedKeysCollection
+        TemplateSize: =47
+        Width: =1303
+        X: =32
+        Y: =435
+        ZIndex: =3
+
+        SelectedKeyLabel As label:
+            Align: =Align.Center
+            Color: =YellowColor
+            FontWeight: =FontWeight.Semibold
+            Height: =46
+            OnSelect: =Select(Parent)
+            Size: =30
+            Text: =ThisItem.Letra
+            Width: =37
+            X: =8
+            ZIndex: =1
+
+    HangmanImage As image:
+        Height: =428
+        Image: =Switch(ErrorCount, 0, '0', 1, '1', 2, '2', 3, '3', 4, '4', 5, '5', 6, '6')
+        Width: =302
+        X: =40
+        Y: =40
+        ZIndex: =4
+
+    PopupGroup As group:
+        Height: =5
+        Width: =5
+        X: =60
+        Y: =60
+        ZIndex: =10
+
+        PopupBackground As rectangle:
+            BorderColor: =RGBA(51, 51, 51, 1)
+            Fill: =RGBA(51, 51, 51, 0.5)
+            Height: =768
+            Visible: =If (GameStatus = 0, false, true)
+            Width: =1363
+            X: =3
+            ZIndex: =32
+
+        PopupLabel As label:
+            Align: =Align.Center
+            BorderColor: =YellowColor
+            BorderThickness: =4
+            Fill: =RGBA(255, 255, 255, 0.61)
+            FontWeight: =FontWeight.Bold
+            Height: =244
+            PaddingBottom: =100
+            Size: =20
+            Text: =If (GameStatus = 1, "Vamos campeón, has ganado la partida!", GameStatus = 2, "Lo siento crack, has palmado")
+            Visible: =If (GameStatus = 0, false, true)
+            Width: =516
+            X: =426
+            Y: =280
+            ZIndex: =33
+
+        RestartButton As button:
+            Fill: =YellowColor
+            Height: =91
+            HoverFill: =ColorFade(YellowColor, -20%)
+            OnSelect: |-
+                =Reset(SecretWordTextInput);
+                Navigate(WordScreen)
+            Text: ="EMPEZAR PARTIDA"
+            Visible: =If (GameStatus = 0, false, true)
+            X: =604
+            Y: =418
+            ZIndex: =34
+
+    KeyboardGroup As group:
+        Height: =5
+        Width: =5
+        X: =60
+        Y: =60
+        ZIndex: =35
+
+        LetterComponent_1 As LetterComponent:
+            ButtonColor: =YellowColor
+            ButtonLeter: ="Q"
+            X: =221
+            Y: =491
+            ZIndex: =5
+
+        LetterComponent_2 As LetterComponent:
+            ButtonColor: =YellowColor
+            ButtonLeter: ="W"
+            X: =312
+            Y: =491
+            ZIndex: =6
+
+        LetterComponent_3 As LetterComponent:
+            ButtonColor: =YellowColor
+            ButtonLeter: ="E"
+            X: =404
+            Y: =491
+            ZIndex: =7
+
+        LetterComponent_4 As LetterComponent:
+            ButtonColor: =YellowColor
+            ButtonLeter: ="R"
+            X: =496
+            Y: =491
+            ZIndex: =8
+
+        LetterComponent_5 As LetterComponent:
+            ButtonColor: =YellowColor
+            ButtonLeter: ="T"
+            X: =587
+            Y: =491
+            ZIndex: =9
+
+        LetterComponent_6 As LetterComponent:
+            ButtonColor: =YellowColor
+            ButtonLeter: ="Y"
+            X: =679
+            Y: =491
+            ZIndex: =10
+
+        LetterComponent_7 As LetterComponent:
+            ButtonColor: =YellowColor
+            ButtonLeter: ="U"
+            X: =772
+            Y: =491
+            ZIndex: =11
+
+        LetterComponent_8 As LetterComponent:
+            ButtonColor: =YellowColor
+            ButtonLeter: ="I"
+            X: =863
+            Y: =491
+            ZIndex: =12
+
+        LetterComponent_9 As LetterComponent:
+            ButtonColor: =YellowColor
+            ButtonLeter: ="O"
+            X: =955
+            Y: =491
+            ZIndex: =13
+
+        LetterComponent_10 As LetterComponent:
+            ButtonColor: =YellowColor
+            X: =220
+            Y: =577
+            ZIndex: =14
+
+        LetterComponent_11 As LetterComponent:
+            ButtonColor: =YellowColor
+            ButtonLeter: ="S"
+            X: =311
+            Y: =577
+            ZIndex: =15
+
+        LetterComponent_12 As LetterComponent:
+            ButtonColor: =YellowColor
+            ButtonLeter: ="D"
+            X: =403
+            Y: =577
+            ZIndex: =16
+
+        LetterComponent_13 As LetterComponent:
+            ButtonColor: =YellowColor
+            ButtonLeter: ="F"
+            X: =495
+            Y: =577
+            ZIndex: =17
+
+        LetterComponent_14 As LetterComponent:
+            ButtonColor: =YellowColor
+            ButtonLeter: ="G"
+            X: =586
+            Y: =577
+            ZIndex: =18
+
+        LetterComponent_15 As LetterComponent:
+            ButtonColor: =YellowColor
+            ButtonLeter: ="H"
+            X: =678
+            Y: =577
+            ZIndex: =19
+
+        LetterComponent_16 As LetterComponent:
+            ButtonColor: =YellowColor
+            ButtonLeter: ="J"
+            X: =771
+            Y: =577
+            ZIndex: =20
+
+        LetterComponent_17 As LetterComponent:
+            ButtonColor: =YellowColor
+            ButtonLeter: ="K"
+            X: =862
+            Y: =577
+            ZIndex: =21
+
+        LetterComponent_18 As LetterComponent:
+            ButtonColor: =YellowColor
+            ButtonLeter: ="L"
+            X: =954
+            Y: =577
+            ZIndex: =22
+
+        LetterComponent_19 As LetterComponent:
+            ButtonColor: =YellowColor
+            ButtonLeter: ="Z"
+            X: =221
+            Y: =661
+            ZIndex: =23
+
+        LetterComponent_20 As LetterComponent:
+            ButtonColor: =YellowColor
+            ButtonLeter: ="X"
+            X: =312
+            Y: =661
+            ZIndex: =24
+
+        LetterComponent_21 As LetterComponent:
+            ButtonColor: =YellowColor
+            ButtonLeter: ="C"
+            X: =404
+            Y: =661
+            ZIndex: =25
+
+        LetterComponent_22 As LetterComponent:
+            ButtonColor: =YellowColor
+            ButtonLeter: ="V"
+            X: =496
+            Y: =661
+            ZIndex: =26
+
+        LetterComponent_23 As LetterComponent:
+            ButtonColor: =YellowColor
+            ButtonLeter: ="B"
+            X: =587
+            Y: =661
+            ZIndex: =27
+
+        LetterComponent_24 As LetterComponent:
+            ButtonColor: =YellowColor
+            ButtonLeter: ="N"
+            X: =679
+            Y: =661
+            ZIndex: =28
+
+        LetterComponent_25 As LetterComponent:
+            ButtonColor: =YellowColor
+            ButtonLeter: ="M"
+            X: =772
+            Y: =661
+            ZIndex: =29
+
+        LetterComponent_26 As LetterComponent:
+            ButtonColor: =YellowColor
+            ButtonLeter: ="Ñ"
+            X: =1042
+            Y: =577
+            ZIndex: =30
+
+        LetterComponent_27 As LetterComponent:
+            ButtonColor: =YellowColor
+            ButtonLeter: ="P"
+            X: =1042
+            Y: =491
+            ZIndex: =31
+

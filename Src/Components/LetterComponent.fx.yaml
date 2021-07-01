@@ -1,0 +1,54 @@
+LetterComponent As CanvasComponent:
+    ButtonColor: =RGBA(195, 154, 31, 1)
+    ButtonLeter: ="A"
+    Fill: =RGBA(0, 0, 0, 0)
+    Height: =70
+    OnReset: =
+    Width: =70
+    X: =0
+    Y: =0
+    ZIndex: =1
+
+    LetterButton As button:
+        DisplayMode: =If(Self.Text in SelectedKeysCollection.Letra, DisplayMode.Disabled, DisplayMode.Edit)
+        Fill: =LetterComponent.ButtonColor
+        Height: =70
+        HoverFill: =ColorFade(LetterComponent.ButtonColor, -20%)
+        OnSelect: |+
+            =// Comprobar error
+            If (
+                Not(Self.Text in SecretWordCollection.Result) && Not(Self.Text in SelectedKeysCollection.Letra),
+                Set(ErrorCount, ErrorCount +1)
+            );
+            
+            // Comprobar acierto
+            If (
+                Self.Text in SecretWordCollection.Result && Not(Self.Text in SelectedKeysCollection.Letra),
+                Set(WinCount, WinCount+1)
+            );
+            
+            // Controlar las letras seleccionadas
+            If (
+                Not(Self.Text in SelectedKeysCollection.Letra),
+                Collect(
+                    SelectedKeysCollection,
+                    {Letra: Self.Text}
+                )
+            );
+            
+            // Comprobar partida ganada
+            If (WinCount = CountA(Distinct(SecretWordCollection,Result).Result), Set(GameStatus, 1));
+            
+            
+            // Comprobar partida perdida
+            If (ErrorCount = 6, Set(GameStatus, 2))
+            
+            
+            
+            
+            
+        Size: =30
+        Text: =LetterComponent.ButtonLeter
+        Width: =70
+        ZIndex: =1
+

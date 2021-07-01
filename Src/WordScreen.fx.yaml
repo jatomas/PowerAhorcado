@@ -1,0 +1,46 @@
+WordScreen As screen:
+    Fill: =GreenColor
+    OnVisible: =
+
+    TitleLabel As label:
+        Color: =YellowColor
+        Height: =103
+        Size: =50
+        Text: ="POWER AHORCADO"
+        Width: =638
+        X: =356
+        Y: =8
+        ZIndex: =1
+
+    SecretWordTextInput As text:
+        BorderColor: =YellowColor
+        BorderThickness: =5
+        Color: =YellowColor
+        Default: =""
+        Height: =71
+        HintText: ="Introduce la palabra secreta..."
+        HoverBorderColor: =YellowColor
+        HoverColor: =RGBA(51, 51, 51, 1)
+        HoverFill: =YellowColor
+        RadiusBottomLeft: =110
+        RadiusBottomRight: =110
+        RadiusTopLeft: =110
+        RadiusTopRight: =110
+        Size: =20
+        Width: =522
+        X: =414
+        Y: =322
+        ZIndex: =2
+
+    PlayButton As button:
+        Fill: =YellowColor
+        Height: =91
+        HoverFill: =ColorFade(YellowColor, -20%)
+        OnSelect: |-
+            =ClearCollect(SecretWordCollection, Split(Upper(SecretWordTextInput.Text), ""));
+            Navigate(PlayScreen)
+        Text: ="JUGAR"
+        X: =595
+        Y: =550
+        ZIndex: =3
+
